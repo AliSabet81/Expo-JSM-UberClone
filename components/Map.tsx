@@ -9,7 +9,7 @@ const Map = () => {
       className="rounded-2xl"
       style={{ height: "100%", width: "100%" }}
       tintColor="black"
-      mapType="mutedStandard"
+      // mapType="mutedStandard"
       showsPointsOfInterest={false}
       // initialRegion={region}
       showsUserLocation={true}
