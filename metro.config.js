@@ -5,7 +5,6 @@ const config = getDefaultConfig(__dirname, {
   isCSSEnabled: true,
 });
 
-// This is not needed for NativeWind, it is configuration for Metro to understand monorepos
 const projectRoot = __dirname;
 
 // 2. Enable NativeWind
@@ -13,7 +12,6 @@ const { withNativeWind } = require("nativewind/metro");
 module.exports = withNativeWind(config, {
   // 3. Set `input` to your CSS file with the Tailwind at-rules
   input: "global.css",
-  // This is optional
   projectRoot,
   inlineRem: false,
   features: {

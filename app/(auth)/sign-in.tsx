@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "expo-router";
+import { Image, ScrollView, Text, View } from "react-native";
 
 import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constants";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
-import { Image, ScrollView, Text, View } from "react-native";
 
 const SignIn = () => {
   const [form, setForm] = useState({

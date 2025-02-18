@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import Swiper from "react-native-swiper";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useRef, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+
 import { onboarding } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 
@@ -60,7 +61,7 @@ const Welcome = () => {
             ? router.replace("/(auth)/sign-up")
             : swiperRef.current?.scrollBy(1)
         }
-        className="w-11/12 mt-10 mb-5"
+        className="w-[91%] mt-10 mb-5"
       />
     </SafeAreaView>
   );
