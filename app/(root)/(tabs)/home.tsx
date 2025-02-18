@@ -1,8 +1,9 @@
-import { Link, router } from "expo-router";
-import { Text, View } from "react-native";
-import { SignedIn, SignedOut, useAuth, useUser } from "@clerk/clerk-expo";
+import { router } from "expo-router";
+import { Text } from "react-native";
+import { SignedIn, useAuth, useUser } from "@clerk/clerk-expo";
 
 import CustomButton from "@/components/CustomButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Page() {
   const { user } = useUser();
@@ -12,7 +13,7 @@ export default function Page() {
     router.replace("/(auth)/sign-in");
   };
   return (
-    <View>
+    <SafeAreaView>
       <SignedIn>
         <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
         <CustomButton
@@ -21,14 +22,6 @@ export default function Page() {
           onPress={handleSignOut}
         />
       </SignedIn>
-      <SignedOut>
-        <Link href="/(auth)/sign-in">
-          <Text>Sign in</Text>
-        </Link>
-        <Link href="/(auth)/sign-up">
-          <Text>Sign up</Text>
-        </Link>
-      </SignedOut>
-    </View>
+    </SafeAreaView>
   );
 }
