@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
+import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
+import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 
 import "../global.css";
 
-SplashScreen.preventAutoHideAsync();
-
-import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { tokenCache } from "@/lib/auth";
+
+SplashScreen.preventAutoHideAsync();
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -48,6 +49,7 @@ export default function RootLayout() {
           <Stack.Screen name="(root)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
+        <StatusBar style="dark" />
       </ClerkLoaded>
     </ClerkProvider>
   );

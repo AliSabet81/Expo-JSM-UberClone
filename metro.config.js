@@ -13,8 +13,4 @@ module.exports = withNativeWind(config, {
   // 3. Set `input` to your CSS file with the Tailwind at-rules
   input: "global.css",
   projectRoot,
-  inlineRem: false,
-  features: {
-    transformPercentagePolyfill: true,
-  },
 });
