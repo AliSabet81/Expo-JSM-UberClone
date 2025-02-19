@@ -160,7 +160,23 @@ export default function Page() {
     })();
   }, []);
 
-  const handleDestinationPress = () => {};
+  const handleDestinationPress = async (location: {
+    latitude: number;
+    longitude: number;
+  }) => {
+    const address = await Location.reverseGeocodeAsync({
+      latitude: location.latitude,
+      longitude: location.longitude,
+    });
+
+    setDestinationLocation({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      address: `${address[0].name}, ${address[0].region}`,
+    });
+
+    router.push("/(root)/find-ride");
+  };
 
   const loading = false;
   return (
@@ -216,7 +232,7 @@ export default function Page() {
                 Your current location
               </Text>
               <View className="flex flex-row items-center bg-transparent w-full h-[300px]">
-                <Map />
+                <Map handleDestinationPress={handleDestinationPress} />
               </View>
             </>
 

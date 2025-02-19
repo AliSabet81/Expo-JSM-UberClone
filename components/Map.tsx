@@ -3,6 +3,7 @@ import { calculateRegion, generateMarkersFromData } from "@/lib/map";
 import { useDriverStore, useLocationStore } from "@/store";
 import { MarkerData, RegionData } from "@/types/type";
 import { useEffect, useState } from "react";
+import { Platform } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 
 const drivers = [
@@ -52,7 +53,14 @@ const drivers = [
   },
 ];
 
-const Map = () => {
+const Map = ({
+  handleDestinationPress,
+}: {
+  handleDestinationPress: (location: {
+    latitude: number;
+    longitude: number;
+  }) => void;
+}) => {
   const {
     userLongitude,
     userLatitude,
@@ -88,31 +96,45 @@ const Map = () => {
   }, [userLatitude]);
 
   return (
-    <MapView
-      provider={PROVIDER_DEFAULT}
-      className="rounded-2xl"
-      style={{ height: "100%", width: "100%" }}
-      tintColor="black"
-      // mapType="mutedStandard"
-      showsPointsOfInterest={false}
-      initialRegion={region}
-      showsUserLocation={true}
-      userInterfaceStyle="light"
-    >
-      {markers.map((marker, index) => (
-        <Marker
-          key={marker.id}
-          coordinate={{
-            latitude: marker.latitude,
-            longitude: marker.longitude,
-          }}
-          title={marker.title}
-          image={
-            selectedDriver === +marker.id ? icons.selectedMarker : icons.marker
-          }
-        />
-      ))}
-    </MapView>
+    <>
+      <MapView
+        provider={PROVIDER_DEFAULT}
+        className="rounded-2xl"
+        style={{ height: "100%", width: "100%" }}
+        tintColor="black"
+        // mapType="mutedStandard"
+        showsPointsOfInterest={false}
+        initialRegion={region}
+        showsUserLocation={true}
+        userInterfaceStyle="light"
+        mapType={Platform.OS == "android" ? "terrain" : "standard"}
+        onLongPress={(item) => {
+          handleDestinationPress({
+            latitude: item.nativeEvent.coordinate.latitude,
+            longitude: item.nativeEvent.coordinate.longitude,
+          });
+        }}
+      >
+        {markers.map((marker, index) => (
+          <Marker
+            key={marker.id}
+            coordinate={{
+              latitude: marker.latitude,
+              longitude: marker.longitude,
+            }}
+            title={marker.title}
+            image={
+              selectedDriver === +marker.id
+                ? icons.selectedMarker
+                : icons.marker
+            }
+          />
+        ))}
+      </MapView>
+      {/* <OverlayComponent
+      style={{position: "absolute", bottom: 50}}
+    /> */}
+    </>
   );
 };
 
