@@ -1,4 +1,5 @@
 import { useAuth } from "@clerk/clerk-expo";
+import { useStripe } from "@stripe/stripe-react-native";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Image, Text, View } from "react-native";
@@ -17,6 +18,7 @@ const Payment = ({
   driverId,
   rideTime,
 }: PaymentProps) => {
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const {
     userAddress,
     userLongitude,
@@ -31,10 +33,70 @@ const Payment = ({
 
   const openPaymentSheet = async () => {
     await initializePaymentSheet();
+
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      setSuccess(true);
+    }
   };
 
   const initializePaymentSheet = async () => {
-    setSuccess(true);
+    const { error } = await initPaymentSheet({
+      merchantDisplayName: "Example, Inc.",
+      intentConfiguration: {
+        mode: {
+          amount: parseInt(amount) * 100,
+          currencyCode: "usd",
+        },
+        confirmHandler: async (
+          paymentMethod,
+          shouldSavePaymentMethod,
+          intentCreationCallback
+        ) => {
+          const { paymentIntent, customer } = await fetchAPI(
+            "/(api)/(stripe)/create",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: fullName || email.split("@")[0],
+                email: email,
+                amount: amount,
+                paymentMethodId: paymentMethod.id,
+              }),
+            }
+          );
+
+          if (paymentIntent.client_secret) {
+            const { result } = await fetchAPI("/(api)/(stripe)/pay", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                payment_method_id: paymentMethod.id,
+                payment_intent_id: paymentIntent.id,
+                customer_id: customer,
+                client_secret: paymentIntent.client_secret,
+              }),
+            });
+
+            if (result.client_secret) {
+            }
+          }
+        },
+      },
+      returnURL: "myapp://book-ride",
+    });
+
+    if (!error) {
+      // setLoading(true);
+    }
   };
 
   return (
