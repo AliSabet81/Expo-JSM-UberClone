@@ -35,7 +35,6 @@ const Payment = ({
     await initializePaymentSheet();
 
     const { error } = await presentPaymentSheet();
-    console.log(error);
 
     if (error) {
       Alert.alert(`Error code: ${error.code}`, error.message);
@@ -45,8 +44,6 @@ const Payment = ({
   };
 
   const initializePaymentSheet = async () => {
-    console.log("init");
-
     const { error, paymentOption } = await initPaymentSheet({
       merchantDisplayName: "Example, Inc.",
       intentConfiguration: {
