@@ -1,10 +1,10 @@
 import { router } from "expo-router";
 import { FlatList, View } from "react-native";
 
-import CustomButton from "@/components/CustomButton";
-import DriverCard from "@/components/DriverCard";
-import RideLayout from "@/components/RideLayout";
 import { useDriverStore } from "@/store";
+import RideLayout from "@/components/RideLayout";
+import DriverCard from "@/components/DriverCard";
+import CustomButton from "@/components/CustomButton";
 
 const ConfirmRide = () => {
   const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();

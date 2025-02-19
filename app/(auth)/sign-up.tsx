@@ -5,10 +5,10 @@ import { ReactNativeModal } from "react-native-modal";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 
 import OAuth from "@/components/OAuth";
+import { fetchAPI } from "@/lib/fetch";
 import { icons, images } from "@/constants";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
-import { fetchAPI } from "@/lib/fetch";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();

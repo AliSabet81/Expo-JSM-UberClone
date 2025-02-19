@@ -1,9 +1,11 @@
 import { Image, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-import { GoogleInputProps } from "@/types/type";
 import { icons } from "@/constants";
+import { GoogleInputProps } from "@/types/type";
+
 const googlePlacesApiKey = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
+
 import "react-native-get-random-values";
 
 const GoogleTextInput = ({

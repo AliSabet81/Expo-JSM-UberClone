@@ -1,12 +1,12 @@
-import { useCallback, useState } from "react";
 import { Link, router } from "expo-router";
+import { useCallback, useState } from "react";
+import { useSignIn } from "@clerk/clerk-expo";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 
 import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constants";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
-import { useSignIn } from "@clerk/clerk-expo";
 
 const SignIn = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
