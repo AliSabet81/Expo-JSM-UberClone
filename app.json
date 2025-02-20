@@ -29,13 +29,27 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      ["expo-router", { "origin": "https://uber.com" }],
+      [
+        "expo-router",
+        {
+          "origin": "https://uber.com"
+        }
+      ],
       "expo-font",
       "expo-secure-store"
     ],
     "experiments": {
       "tsconfigPaths": true,
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": "https://uber.com"
+      },
+      "eas": {
+        "projectId": "d90d97aa-760c-4739-a92e-c500e068c4ad"
+      }
+    },
+    "owner": "alisabet"
   }
 }
